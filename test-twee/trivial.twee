@@ -1,0 +1,23 @@
+:: StoryData
+{
+	"ifid": "F84DACAA-11AB-43E3-8AD4-483BDDA4B134"
+}
+::StoryTitle
+A Foo Bar Will Bleed
+
+::Start[start]
+Hello There
+
+Aren't you a pretty lady with a fancy tea? A mighty maid with a well packed leaf.
+
+[[Foo]]
+
+::Foo [tag1 tag2 tag3 tag4]
+
+A fancy devil, not a simple foe. A mustache twirling weevil, not a mere poe.
+
+[[Bar]] {"metaprop": "metaval", "metapod":"butterfree"}
+
+::Bar
+
+Opulant Tastes, not a sucker indeed. A delightful tobago, a canadian in need.

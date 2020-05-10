@@ -1,0 +1,30 @@
+{
+  "name": "jailbird",
+  "version": "1.0.0",
+  "description": "A way to let your twine stories take flight. Converts twine into a standardized JSON format.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/vorpalhex/jailbird.git"
+  },
+  "keywords": [
+    "twine",
+    "tweego",
+    "jailbird"
+  ],
+  "author": "VorpalHex <vorpalhex@vorpalhex.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vorpalhex/jailbird/issues"
+  },
+  "homepage": "https://github.com/vorpalhex/jailbird#readme",
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "ajv": "^6.12.2",
+    "xml2js": "^0.4.23",
+    "yargs": "^15.3.1"
+  }
+}

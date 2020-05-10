@@ -1,0 +1,87 @@
+{
+    "$id": "jailbird-1.schema.json",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Jailbird",
+    "type": "object",
+    "properties": {
+        "_meta": {
+            "description": "contains top level story metadata including our story name, our first node and our IFID",
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "The story title. Equivalent to {{STORY_NAME}} in Twine Markup."
+                },
+                "startnode": {
+                    "type": "number",
+                    "description": "The PID of the first passage to begin the story"
+                },
+                "creator": {
+                    "type": "string"
+                },
+                "creator-version": {
+                    "type": "string"
+                },
+                "ifid": {
+                    "type": "string",
+                    "title": "Interactive Fiction ID",
+                    "description": "Our IFID is a unique id associated with a given story. Normally UUIDs. Twee-v3 specifies this a v4 with all caps."
+                },
+                "format": {
+                    "type": "string",
+                    "description": "The exporter used by the compiler. Usually jailbird if it ends up in JSON."
+                },
+                "format-version": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name",
+                "startnode",
+                "ifid"
+            ]
+        },
+        "passages": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": [
+                    "pid",
+                    "name",
+                    "contents"
+                ],
+                "properties": {
+                    "pid": {
+                        "type": "number",
+                        "title": "Passage ID",
+                        "description": "An incrementing integer that should align with our array index, used to find the start of the story."
+                    },
+                    "name": {
+                        "type": "string",
+                        "title": "Passage Title",
+                        "description": "A human readable name for the passage, also used for links."
+                    },
+                    "tags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "An array of passage level tags."
+                    },
+                    "position": {
+                        "type": "string",
+                        "description": "Used by Twine visual editor"
+                    },
+                    "size": {
+                        "type": "string",
+                        "description": "Used by Twine visual editor"
+                    },
+                    "contents": {
+                        "type": "string",
+                        "description": "Our unparsed, raw passage text content. May contain JSON, HTML or anything else the author has entered."
+                    }
+                }
+            }
+        }
+    }
+}

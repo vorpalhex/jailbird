@@ -1,0 +1,100 @@
+'use strict';
+
+const fs = require('fs');
+const path = require('path');
+
+const yargs = require('yargs');
+
+const converter = require('./converter');
+
+/*
+ * Main Entry
+ *
+ * Bootstrap a yargs parser for proper CLI behavior
+ * should be crossplatform
+ * we have a single default command
+ */
+yargs
+  .scriptName('jailbird')
+  .usage('$0 input.xml')
+  .command(
+    ['$0 [story]'],
+    'convert a jailbird xml file to json',
+    (yargs) => {
+      //we have a single unnamed default command, see >https://github.com/yargs/yargs/blob/master/docs/advanced.md#default-commands
+      yargs.positional('story', {
+        type: 'string',
+        demand: false,
+        default: '',
+        describe:
+          'path to the exported jailbird story, must be xml, defaults to STDIN if not specified',
+      });
+      yargs.option('output', {
+        alias: 'o',
+        type: 'string',
+        default: '',
+        describe:
+          'where to output our converted object, otherwise we default to STDOUT',
+      });
+    },
+    defaultCmdHandler
+  )
+  .showHelpOnFail(false)
+  .help().argv;
+
+//defaultCmdHandler is what gets called for any kind of invocation except help
+async function defaultCmdHandler(argv) {
+  let sourceXml = null;
+  //Try the positional argument then fallback to trying stdin
+  if (argv.story) {
+    const ext = path.extname(argv.story);
+    if (!ext || ext != '.xml') {
+      throw new Error('Format not supported!');
+    }
+    sourceXml = fs.readFileSync(path.normalize(argv.story), {
+      encoding: 'utf8',
+    });
+  } else {
+    const stdin = await getStdin();
+    if (!stdin || !stdin.length) {
+      //If we got this far, they probably just invoked us without any extra data, let's show them the help screen
+      console.log('No input file provided and stdin looks empty...\n\n');
+      yargs.showHelp();
+      process.exit(0);
+    }
+    sourceXml = stdin;
+  }
+
+  const resultJson = await converter(sourceXml);
+
+  if (yargs.output) {
+    return fs.writeFileSync(outPath, resultJson, { encoding: 'utf8' });
+  }
+
+  process.stdout.setEncoding('utf8');
+  return process.stdout.write(resultJson);
+}
+
+//getStdin is a convenience function to read all data sent to stdin
+async function getStdin() {
+  process.stdin.setEncoding('utf8');
+  const data = '';
+
+  process.stdin.on('readable', () => {
+    let chunk;
+    // Use a loop to make sure we read all available data.
+    while ((chunk = process.stdin.read()) !== null) {
+      data += chunk;
+    }
+  });
+
+  process.stdin.on('end', () => {
+    return data;
+  });
+}
+
+//treat all uncaught errors as fatals with some logging
+process.on('uncaughtException', (err) => {
+  console.error('error: ', err.msg);
+  process.exit(1);
+});
