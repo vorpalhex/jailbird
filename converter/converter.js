@@ -5,7 +5,7 @@ const xml2js = require('xml2js');
 const Joi = require('@hapi/joi');
 const AJV = require('ajv');
 
-const schemaPath = '../schema/jailbird-1.schema.json';
+const schemaPath = `${__dirname}/../schema/jailbird-1.schema.json`;
 
 module.exports = async function (xmlDoc) {
   const parser = new xml2js.Parser({

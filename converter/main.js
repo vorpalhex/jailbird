@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 'use strict';
 
 const fs = require('fs');
@@ -5,7 +6,7 @@ const path = require('path');
 
 const yargs = require('yargs');
 
-const converter = require('./converter');
+const converter = require(`${__dirname}/converter`);
 
 /*
  * Main Entry
@@ -19,7 +20,7 @@ yargs
   .usage('$0 input.xml')
   .command(
     ['$0 [story]'],
-    'convert a jailbird xml file to json',
+    'convert a jailbird xml file to json, meant to be used alongside Tweego',
     (yargs) => {
       //we have a single unnamed default command, see >https://github.com/yargs/yargs/blob/master/docs/advanced.md#default-commands
       yargs.positional('story', {

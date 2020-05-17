@@ -14,3 +14,7 @@ install-format:
 	mkdir -p $(TWEEGO_DIR)/storyformats/jailbird
 	cp -r format/* $(TWEEGO_DIR)/storyformats/jailbird
 .PHONY: install-format
+
+publish:
+	npm publish
+.PHONY: publish
