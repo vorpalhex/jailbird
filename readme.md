@@ -18,6 +18,14 @@ We intentionally only support the latest format. If you need to convert between 
 
 ## Setup
 
+Jailbird has two parts: a Twine format and an executable. To get the executable, you can use `npm install -g jailbird`.
+
+To install the twine format for Tweego, you'll need to download the /format folder and install it into your tweego story-formats directory.
+
+To install the twine format for Twine itself, you can just drop in a link to the JSON file. 
+
+Docker image with a preconfigured Tweego is coming soon!
+
 ## Community
 
 Wrote a compatible engine or your own converter? Pulled our tools into other languages? Please open a PR or an issue and add your project! The more people who contribute, the better Jailbird can become.
