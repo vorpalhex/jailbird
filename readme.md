@@ -24,7 +24,7 @@ To install the twine format for Tweego, you'll need to download the /format fold
 
 To install the twine format for Twine itself, you can just drop in a link to the JSON file. 
 
-Docker image with a preconfigured Tweego is coming soon!
+Our [docker image](https://hub.docker.com/r/vorpalhex/jailbird) can be used so: `cat my-twee.twee | docker run -i --rm vorpalhex/jailbird:latest > my-twee.json`.
 
 ## Community
 

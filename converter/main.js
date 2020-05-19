@@ -77,21 +77,22 @@ async function defaultCmdHandler(argv) {
 }
 
 //getStdin is a convenience function to read all data sent to stdin
+//taken from @sindresorhus' get-stdin, https://github.com/sindresorhus/get-stdin
 async function getStdin() {
-  process.stdin.setEncoding('utf8');
-  const data = '';
+  const { stdin } = process;
+  let result = '';
 
-  process.stdin.on('readable', () => {
-    let chunk;
-    // Use a loop to make sure we read all available data.
-    while ((chunk = process.stdin.read()) !== null) {
-      data += chunk;
-    }
-  });
+  if (stdin.isTTY) {
+    return result;
+  }
 
-  process.stdin.on('end', () => {
-    return data;
-  });
+  stdin.setEncoding('utf8');
+
+  for await (const chunk of stdin) {
+    result += chunk;
+  }
+
+  return result;
 }
 
 //treat all uncaught errors as fatals with some logging

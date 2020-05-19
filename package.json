@@ -1,6 +1,6 @@
 {
   "name": "jailbird",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A way to let your twine stories take flight. Converts twine into a standardized JSON format.",
   "main": "./converter/converter.js",
   "bin": {

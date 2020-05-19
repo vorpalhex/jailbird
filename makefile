@@ -18,3 +18,7 @@ install-format:
 publish:
 	npm publish
 .PHONY: publish
+
+docker-build:
+	docker build -t jailbird:latest .
+.PHONY: docker-build
